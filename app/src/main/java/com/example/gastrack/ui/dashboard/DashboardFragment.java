@@ -30,6 +30,15 @@ public class DashboardFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        String message = "Hello World";
+        TextView messageView = root.findViewById(R.id.textView);
+        messageView.setText(message);
         return root;
     }
+
+//    public void setMessage(){
+//        String message = "Hello World";
+//        TextView messageView = findViewById(R.id.textView);
+//        messageView.setText(message);
+//    }
 }
