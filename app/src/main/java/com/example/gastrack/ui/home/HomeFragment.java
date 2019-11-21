@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
         public void afterTextChanged(Editable s) {
             Double litersInput = Double.parseDouble(editLiters.getText().toString());
             Double priceInput = Double.parseDouble(editPrice.getText().toString());
-            Double perLiterInput = (litersInput/priceInput);
+            Double perLiterInput = (priceInput/litersInput);
             if(priceInput != 0.00) {
                 editPerLiter.setText(String.format("%.2f", perLiterInput));
             }
@@ -123,6 +123,7 @@ public class HomeFragment extends Fragment {
         String message = "Liters: " + editLitersString + ", Price: " + editPriceString + ", Price per liter: " + editPerLiterString;
         //create Json
         JSONObject entryInfoJSON = createJson(editLitersString,editPriceString,editPerLiterString);
+
         intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra("entryInfoJSON", entryInfoJSON.toString());
         startActivity(intent);
