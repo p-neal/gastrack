@@ -30,9 +30,6 @@ public class DataFragment extends Fragment {
                 textView.setText(s);
             }
         });
-//        String message = "Hello World";
-//        TextView messageView = root.findViewById(R.id.textView);
-//        messageView.setText(message);
         return root;
     }
 
