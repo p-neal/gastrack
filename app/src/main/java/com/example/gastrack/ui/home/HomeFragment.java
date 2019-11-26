@@ -23,6 +23,10 @@ import com.example.gastrack.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class HomeFragment extends Fragment {
 
     public static final String EXTRA_MESSAGE = "com.example.gastrack.MESSAGE";
@@ -31,6 +35,7 @@ public class HomeFragment extends Fragment {
     private EditText editPerLiter;
     private Button buttonSave;
     private HomeViewModel homeViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +114,7 @@ public class HomeFragment extends Fragment {
             }
         }
     };
+
     public void saveData (View view) {
         Intent intent = new Intent(getActivity(), DisplayMessageActivity.class);
         //Fields
@@ -119,18 +125,27 @@ public class HomeFragment extends Fragment {
         String editLitersString = editLiters.getText().toString();
         String editPriceString = editPrice.getText().toString();
         String editPerLiterString = editPerLiter.getText().toString();
+
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c);
+
         //Combined
-        String message = "Liters: " + editLitersString + ", Price: " + editPriceString + ", Price per liter: " + editPerLiterString;
+        String message = "Date: " + formattedDate  + "Liters: " + editLitersString + ", Price: " + editPriceString + ", Price per liter: " + editPerLiterString;
+
         //create Json
-        JSONObject entryInfoJSON = createJson(editLitersString,editPriceString,editPerLiterString);
+        JSONObject entryInfoJSON = createJson(formattedDate,editLitersString,editPriceString,editPerLiterString);
 
         intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra("entryInfoJSON", entryInfoJSON.toString());
         startActivity(intent);
     }
-    public JSONObject createJson(String liters, String price, String perLiter ){
+    public JSONObject createJson(String formattedDate, String liters, String price, String perLiter ){
         JSONObject entryInfoJSON = new JSONObject();
         try {
+            entryInfoJSON.put("Date", formattedDate);
             entryInfoJSON.put("Liters", liters);
             entryInfoJSON.put("Price", price);
             entryInfoJSON.put("PerLiters", perLiter);
